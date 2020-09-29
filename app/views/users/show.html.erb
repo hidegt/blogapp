@@ -1,0 +1,27 @@
+<% if @user != current_user %>
+  <h1>Welcome <%= @user.name %>'s page</h1>
+<% else %>
+  <h1>My page<h1>
+<% end %>
+<% @blogs.each do |blog| %>
+  <%= link_to blog_path(blog.id) do %>
+    <%= attachment_image_tag blog, :image %>
+    <%= blog.title %>
+  <% end %><br>
+  <ul>
+    <li><i class="far fa-user"></i>By<%= blog.user.name %></li>
+    <li><i class="far fa-comments"></i><%= blog.blog_comments.count %></li>
+    <li><i class="far fa-heart"></i><%= blog.likes.count %></li>
+  </ul>
+<% end %>
+<%= paginate @blogs %>
+<div class="profile-container">
+<h2>Author</h2>
+  <h3 class="profile-name">Name:<%= @user.name %></h3>
+  <h3 class="profile-introduction">Introduction:<h3>
+  <%= simple_format(@user.introduction) %>
+  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: "jpeg", class:"img-circle", fallback: "no_image.jpg" %>
+  <% if @user.id == current_user.id %>
+    <p><%= link_to "edit profile",edit_user_path(@user) %>
+  <% end %>
+</div>

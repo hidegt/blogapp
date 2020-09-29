@@ -1,0 +1,31 @@
+<h1>user edit</h1>
+<div class="container">
+  <div class="row">
+    <div>
+      <h2 class="form-header-title">Profile</h2>
+      <% if @user.errors.any? %>
+        <div class="form-error">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this obj from being saved:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+    <%= form_with model:@user, local:true do |f| %>
+      <p><span class="fas fa-user"></span>Name</p>
+      <%= f.text_field :name, autofocus: true, placeholder:"name" %>
+      <p><span class="far fa-image"></span>Profile image</p>
+      <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br>
+      <%= f.attachment_field :profile_image, placeholder:"profile_image" %>
+      <p><span class="fas fa-paint-brush"></span>Introduction</p>
+      <%= f.text_area :introduction, autofocus: true %><br>
+      <%= f.submit "Update your information", class: "sub" %>
+    <% end %>
+
+
+    </div>
+  </div>
+</div>
