@@ -1,14 +1,29 @@
 <h1>blog show</h1>
-<h2><%= @blog.title %></h2>
-<%= attachment_image_tag @blog, :image %>
-<p><%= safe_join(@blog.body.split("\n"),tag(:br)) %></p>
 <ul>
   <li>
     <i class="fas fa-user-edit"></i>By <%= link_to @blog.user.name, user_path(@blog.user.id) %>
+    <% unless current_user == @blog.user %>
+      <% if current_user.following?(@blog.user) %>
+        <%= form_for(current_user.relationships.find_by(follow_id: @blog.user.id), html: { method: :delete}) do |f| %>
+          <%= hidden_field_tag :follow_id, @blog.user.id %>
+          <%= f.submit "Unfollow", class: "btn btn-danger btn-block" %>
+        <% end %>
+      <% else %>
+        <%= form_for(current_user.relationships.build) do |f| %>
+          <%= hidden_field_tag :follow_id, @blog.user.id %>
+          <%= f.submit "Follow", class: "btn btn-primary btn-block" %>
+        <% end %>
+      <% end %>
+    <% end %>
   </li>
   <li>
     <i class="far fa-calendar-alt"></i><%= @blog.created_at.strftime('%Y/%m/%d') %>
   </li>
+</ul>
+<h2><%= @blog.title %></h2>
+<%= attachment_image_tag @blog, :image %>
+<p><%= safe_join(@blog.body.split("\n"),tag(:br)) %></p>
+<ul>
   <% if @blog.liked_by?(current_user) %>
     <li>
       <%= link_to blog_likes_path(@blog), method: :delete do %>

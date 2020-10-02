@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   end
   #for user
   resources :users, only: [:show, :edit, :update]
+  resources :relationships, only: [:create, :destroy]
   get "home/about" => "homes#about"
 end
