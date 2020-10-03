@@ -1,0 +1,29 @@
+<%# blogs/edit&new %>
+
+
+<%= form_with model:blog, local:true do |f| %>
+  <div class="row">
+      <div class="col-8 offset-2 my-3">
+  <% if blog.errors.any? %>
+    <h2><%= blog.errors.count %>errors appeared</h2>
+    <ul>
+    <% blog.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  <% end %>
+    <div class="col-8 offset-2 my-3">
+      <%= f.attachment_field :image %><br>
+    </div>
+    <div class="col-8 offset-2 my-3">
+      <%= f.label :title, class:"label" %><br>
+      <%= f.text_field :title, class:"form-control" %><br>
+    </div>
+    <div class="col-8 offset-2 my-3">
+      <%= f.label :body, class:"label" %><br>
+      <%= f.text_area :body, class:"form-control" %><br>
+    </div>
+    <div class="actions">
+      <%= f.submit "Wright blog", class: "btn btn-outline-secondary btn-lg col-6 offset-3 my-4" %>
+    </div>
+<% end %>
