@@ -1,31 +1,50 @@
-<h1>user edit</h1>
 <div class="container">
-  <div class="row">
-    <div>
-      <h2 class="form-header-title">Profile</h2>
-      <% if @user.errors.any? %>
-        <div class="form-error">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this obj from being saved:</h2>
-          <ul>
-            <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    </div>
-    <%= form_with model:@user, local:true do |f| %>
-      <p><span class="fas fa-user"></span>Name</p>
-      <%= f.text_field :name, autofocus: true, placeholder:"name" %>
-      <p><span class="far fa-image"></span>Profile image</p>
-      <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br>
-      <%= f.attachment_field :profile_image, placeholder:"profile_image" %>
-      <p><span class="fas fa-paint-brush"></span>Introduction</p>
-      <%= f.text_area :introduction, autofocus: true %><br>
-      <%= f.submit "Update your information", class: "sub" %>
-    <% end %>
-
-
+  <div class="row justify-content-center m-3 p-3">
+    <div class="col-12">
+      <div class="form-header text-center">
+        <h1 class="form-header-title">Edit my Profile  <span><i class="fas fa-user-edit"></i></span></h1>
+      </div>
     </div>
   </div>
+  <%# title %>
+  <%= form_with model:@user, local:true do |f| %>
+    <div class="row">
+      <div class="col-8 offset-2 my-3">
+        <% if @user.errors.any? %>
+          <div class="form-error">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this obj from being saved:</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-8 offset-2">
+        <span class="fas fa-user"></span>
+        <%= f.label :name, class:"label" %><br>
+        <%= f.text_field :name, autofocus: true, placeholder:"name",class:"form-control" %>
+      </div>
+      <div class="col-8 offset-2 my-4">
+        <span class="far fa-image"></span>
+        <%= f.label :profile_image, class:"label "%><br>
+        <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+        <%= f.attachment_field :profile_image, placeholder:"profile_image" %>
+      </div>
+      <div class="col-8 offset-2">
+        <span class="fas fa-paint-brush"></span>
+        <%= f.label :introduction, class:"label"%><br>
+        <%= f.text_area :introduction, autofocus: true, class:"form-control" %><br>
+      </div>
+      <div class="col-8 offset-2 my-3">
+        <%= f.submit "Update my profile", class: "btn btn-outline-secondary btn-lg col-6 offset-3" %>
+      </div>
+    <%# row div %>
+    </div>
+  <% end %>
+  <%# container div %>
 </div>
+
+
+

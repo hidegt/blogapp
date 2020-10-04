@@ -5,11 +5,11 @@ class BlogCommentsController < ApplicationController
     comment = current_user.blog_comments.new(blog_comment_params)
     comment.blog_id = blog.id
     comment.save
-    redirect_to blog_path(blog)
+    redirect_to request.referer
   end
   def destroy
     BlogComment.find_by(id: params[:id], blog_id: params[:blog_id]).destroy
-    redirect_to blog_path(params[:blog_id])
+    redirect_to request.referer
   end
 
   private

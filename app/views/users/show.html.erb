@@ -1,20 +1,16 @@
-<% if @user != current_user %>
-  <h1>Welcome <%= @user.name %>'s page</h1>
-<% else %>
-  <h1>My page<h1>
-<% end %>
-<% @blogs.each do |blog| %>
-  <%= link_to blog_path(blog.id) do %>
-    <%= attachment_image_tag blog, :image %>
-    <%= blog.title %>
-  <% end %><br>
-  <ul>
-    <li><i class="far fa-user"></i>By<%= blog.user.name %></li>
-    <li><i class="far fa-comments"></i><%= blog.blog_comments.count %></li>
-    <li><i class="far fa-heart"></i><%= blog.likes.count %></li>
-  </ul>
-<% end %>
+<div class="container">
+  <div class="row justify-content-center m-3 p-3">
+    <% if @user != current_user %>
+      <h1>Welcome to <%= @user.name %>'s page  <span><i class="fas fa-paper-plane"></i></span></h1>
+    <% else %>
+      <h1>My page  <span><i class="fas fa-paper-plane"></i></span><h1>
+    <% end %>
+  </div>
+  <%= render 'users/page', blogs: @blogs %>
+</div>
+
 <%= paginate @blogs %>
+
 <div class="profile-container">
 <h2>Author</h2>
   <h3 class="profile-name">Name:<%= @user.name %></h3>

@@ -1,24 +1,24 @@
 <div class="container">
   <div class="row justify-content-center m-3 p-3">
-    <h1>All Blogs<h1>
+    <h1>All Blogs  <span><i class="fas fa-palette"></i></span><h1>
   </div>
 
   <% @blogs.each do |blog| %>
-    <%= link_to blog_path(blog.id) do %>
+  <p class="card-text">
+    <i class="far fa-user"></i>By
+    <%= attachment_image_tag blog.user, :profile_image, size: "60x60", format: "jpeg", class:"rounded-circle", fallback: "no_image.jpg" %>
+    <%=link_to blog.user.name, user_path(blog.user.id) %><span>　　　　</span>
+  </p>
     <div class="card shadow p-3 mb-5 bg-white rounded">
     <div class="row no-gutters">
       <div class="col-md-4">
+    <%= link_to blog_path(blog.id), class:"stretched-link" do %>
         <%= attachment_image_tag blog, :image, format: 'jpeg', size: "300x300", class: "card-img" %>
       </div>
-      <div class="col-md-8">
-        <div class="card-body"><h2 class="b-title p-3 text-muted"><em><%= blog.title %></em></h2>
+      <div class="col-md-6 position-static p-4 pl-md-0">
     <% end %>
-          <p class="card-text">
-            <i class="far fa-user"></i>By
-            <%= attachment_image_tag blog.user, :profile_image, :fill, 50, 50, format: "jpeg", class:"rounded-circle", fallback: "no_image.jpg" %>
-            <%=link_to blog.user.name, user_path(blog.user.id) %><span>　　　　</span>
-            <i class="far fa-calendar-alt"></i><%= blog.created_at.strftime('%Y/%m/%d') %>
-          </p>
+        <div class="card-body"><h2 class="b-title p-3 text-muted"><em><%= blog.title %></em></h2>
+            <span class="text-muted"><i class="far fa-calendar-alt"></i><%= blog.created_at.strftime('%Y/%m/%d') %></span>
           <p class="card-text offset-2">
             <i class="far fa-comments"></i><%= blog.blog_comments.count %>
             <i class="far fa-heart"></i><%= blog.likes.count %>
