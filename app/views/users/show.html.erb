@@ -11,13 +11,21 @@
 
 <%= paginate @blogs %>
 
-<div class="profile-container">
-<h2>Author</h2>
-  <h3 class="profile-name">Name:<%= @user.name %></h3>
-  <h3 class="profile-introduction">Introduction:<h3>
-  <%= simple_format(@user.introduction) %>
-  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: "jpeg", class:"img-circle", fallback: "no_image.jpg" %>
-  <% if @user.id == current_user.id %>
-    <p><%= link_to "edit profile",edit_user_path(@user) %>
-  <% end %>
+<%# プロフィール %>
+<div class="container">
+  <div class="row">
+    <div class="col-9"><h2>About me</h2></div>
+    <div class="col-4">
+      <%= attachment_image_tag @user, :profile_image, size: "200x200", format: "jpeg", class:"img-circle", fallback: "no_image.jpg" %>
+    </div>
+    <div class="col-6">
+      <h3 class="profile-name">Name:</h3>
+      <p><%= @user.name %></p>
+      <h3 class="profile-introduction">Introduction:<h3>
+      <p><%= simple_format(@user.introduction) %></p>
+      <% if @user.id == current_user.id %>
+        <%= link_to "edit profile",edit_user_path(@user), class:"btn btn-outline-danger" %>
+      <% end %>
+    </div>
+  </div>
 </div>

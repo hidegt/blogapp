@@ -23,8 +23,11 @@
 h1, header, .btn, h2, .label{
   font-family: Chalkduster, "Bradley Hand", Courier, "Segoe Print", sans-serif;
 }
-p, .b-title{
+p, .b-title, .blog-title{
   font-family: 'Comic Sans MS', 'baby kruffy', sans-serif;
+}
+.blog-title{
+  font-size: 50px;
 }
 .b-title{
   font-size: 30px;
