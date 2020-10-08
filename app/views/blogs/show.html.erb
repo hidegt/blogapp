@@ -1,59 +1,78 @@
-<h1>blog show</h1>
-<ul>
-  <li>
-    <i class="fas fa-user-edit"></i>By <%= link_to @blog.user.name, user_path(@blog.user.id) %>
-    <% unless current_user == @blog.user %>
-      <% if current_user.following?(@blog.user) %>
-        <%= form_for(current_user.relationships.find_by(follow_id: @blog.user.id), html: { method: :delete}) do |f| %>
-          <%= hidden_field_tag :follow_id, @blog.user.id %>
-          <%= f.submit "Unfollow", class: "btn btn-danger btn-block" %>
-        <% end %>
-      <% else %>
-        <%= form_for(current_user.relationships.build) do |f| %>
-          <%= hidden_field_tag :follow_id, @blog.user.id %>
-          <%= f.submit "Follow", class: "btn btn-primary btn-block" %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </li>
-  <li>
-    <i class="far fa-calendar-alt"></i><%= @blog.created_at.strftime('%Y/%m/%d') %>
-  </li>
-</ul>
-<h2><%= @blog.title %></h2>
-<%= attachment_image_tag @blog, :image %>
-<p><%= safe_join(@blog.body.split("\n"),tag(:br)) %></p>
-<ul>
-  <% if @blog.liked_by?(current_user) %>
-    <li>
-      <%= link_to blog_likes_path(@blog), method: :delete do %>
-        <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-      <% end %>
-      <%= @blog.likes.count %> likes
-    </li>
-  <% else %>
-    <li>
-      <%= link_to blog_likes_path(@blog), method: :post do %>
-        <i class="far fa-heart" aria-hidden="true"></i>
-      <% end %>
-      <%= @blog.likes.count %> likes
-    </li>
-  <% end %>
-  <li>
-    <i class="far fa-comments"></i>
-    <a href="#comments"><%= @blog.blog_comments.count %></a> comments
-  </li>
-</ul>
+<div class="container">
+  <div class="row justify-content-center m-3 p-3">
+    <h1 class="blog-title"><i class="fas fa-angle-double-right"></i>　<%= @blog.title %>　<i class="fas fa-angle-double-left"></i><h1>
+  </div>
 
-<% if @blog.user == current_user %>
-  <ul>
-    <li><%= link_to "Edit this blog", edit_blog_path(@blog.id) %></li>
-    <li><%= link_to "Delete this blog", blog_path(@blog), method: :delete, "data-confirm" => "Do you want to delete?" %></li>
-  </ul>
-<% end %>
+  <div class="row d-flex justify-content-end text-muted text-right">
+    <div class="col-2">
+      <i class="far fa-calendar-alt"></i>　<%= @blog.created_at.strftime('%Y/%m/%d') %>
+    </div>
+  </div>
+
+  <div class="row row-cols-2">
+    <div class="col-2 text-dark offset-1">
+      <i class="far fa-user"></i>By　
+      <%= link_to user_path(@blog.user.id), class:"text-decoration-none" do %>
+        <%= attachment_image_tag @blog.user, :profile_image, size: "60x60", format: "jpeg", class:"border border-secondary rounded-circle", fallback: "no_image.jpg" %>
+        <span class="text-dark"><%= @blog.user.name %></span>
+      <% end %>
+    </div>
+    <div class="col-6 pt-2">
+      <% if @blog.user == current_user %>
+          <%= link_to "Edit blog", edit_blog_path(@blog.id), class:"blog btn btn-outline-warning col-3" %>
+          <%= link_to "Delete blog", blog_path(@blog), method: :delete, class:"blog btn btn-outline-danger col-3", "data-confirm" => "Do you want to delete?" %>
+      <% else %>
+        <% if current_user.following?(@blog.user) %>
+          <%= form_for(current_user.relationships.find_by(follow_id: @blog.user.id), html: { method: :delete}) do |f| %>
+            <%= hidden_field_tag :follow_id, @blog.user.id %>
+            <%= f.submit "Unfollow", class: "blog btn btn-danger" %>
+          <% end %>
+        <% else %>
+          <%= form_for(current_user.relationships.build) do |f| %>
+            <%= hidden_field_tag :follow_id, @blog.user.id %>
+            <%= f.submit "Follow", class: "blog btn btn-primary" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row justify-content-center py-4">
+    <%= attachment_image_tag @blog, :image, class:"img-fluid", size: "700x700", format: "jpeg" %>
+  </div>
+
+  <div class="row">
+    <p class="col-8 offset-2"><%= safe_join(@blog.body.split("\n"),tag(:br)) %></p>
+  </div>
+  <div class="row justify-content-center py-4">
+    <div class="col-2 offset-1">
+      <% if @blog.liked_by?(current_user) %>
+        <div class="blog">
+          <%= link_to blog_likes_path(@blog), method: :delete, class:"text-decoration-none" do %>
+            <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+          <% end %>
+          <%= @blog.likes.count %> likes
+        </div>
+      <% else %>
+        <div class="blog">
+          <%= link_to blog_likes_path(@blog), method: :post, class:"text-decoration-none" do %>
+            <i class="far fa-heart text-dark" aria-hidden="true"></i>
+          <% end %>
+          <%= @blog.likes.count %> likes
+        </div>
+      <% end %>
+    </div>
+    <div class="blog col-2">
+      <i class="far fa-comments"></i>
+      <%= @blog.blog_comments.count %> comments
+    </div>
+  </div>
+<%# container %>
+</div>
+
 <%= form_with(model:[@blog,@blog_comment], local:true) do |f| %>
   <%= f.text_area :comment, class: "form-control", placeholder:"comment is here..." %>
-  <%= f.submit "send", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+  <%= f.submit "send", class: "blog btn btn-danger" %>
 <% end %>
 
 

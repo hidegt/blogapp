@@ -12,20 +12,40 @@
 <%= paginate @blogs %>
 
 <%# プロフィール %>
-<div class="container">
-  <div class="row">
-    <div class="col-9"><h2>About me</h2></div>
-    <div class="col-4">
-      <%= attachment_image_tag @user, :profile_image, size: "200x200", format: "jpeg", class:"img-circle", fallback: "no_image.jpg" %>
-    </div>
-    <div class="col-6">
-      <h3 class="profile-name">Name:</h3>
-      <p><%= @user.name %></p>
-      <h3 class="profile-introduction">Introduction:<h3>
-      <p><%= simple_format(@user.introduction) %></p>
+<div class="container pb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 p-5">
       <% if @user.id == current_user.id %>
         <%= link_to "edit profile",edit_user_path(@user), class:"btn btn-outline-danger" %>
+      <% else %>
+        <h2>About me</h2>
       <% end %>
     </div>
   </div>
+    <div class="row row-cols-3">
+      <div class="col-3 border-right">
+        <%= attachment_image_tag @user, :profile_image, size: "200x200", format: "jpeg", class:"img-circle border border-secondary rounded-circle", fallback: "no_image.jpg" %>
+      </div>
+      <div class="col-4 border-right text-center">
+        <h3 class="user-name"><%= @user.name %></h3>
+        <div class="user-follow py-3">follow:　<%= @user.followings.count %>　　　follower:　<%= @user.followers.count %></div>
+        <% if @user != current_user %>
+          <% if current_user.following?(@user) %>
+            <%= form_for(current_user.relationships.find_by(follow_id: @user.id), html: { method: :delete}) do |f| %>
+              <%= hidden_field_tag :follow_id, @user.id %>
+              <%= f.submit "Unfollow me", class: "btn btn-outline-danger" %>
+            <% end %>
+          <% else %>
+            <%= form_for(current_user.relationships.build) do |f| %>
+              <%= hidden_field_tag :follow_id, @user.id %>
+              <%= f.submit "Follow me", class: "btn btn-outline-primary" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col profile-introduction">
+        <h4>Introduction:</h4>
+        <p><%= simple_format(@user.introduction) %></p>
+      </div>
+    </div>
 </div>
