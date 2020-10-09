@@ -1,17 +1,19 @@
 <%# blogs/edit&new %>
 
-
 <%= form_with model:blog, local:true do |f| %>
-  <div class="row">
-      <div class="col-8 offset-2 my-3">
-        <% if blog.errors.any? %>
-          <h2><%= blog.errors.count %>errors appeared</h2>
-          <ul>
-          <% blog.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
+  <% if blog.errors.any? %>
+    <div class="card text-white bg-danger mb-3 col-8 error offset-2">
+      <div class="card-header ">Warning!!!</div>
+      <div class="card-body">
+        <h2 class="card-title error"><%= blog.errors.count %>errors appeared</h2>
+        <ul>
+        <% blog.errors.full_messages.each do |message| %>
+          <li class="card-text"><%= message %></li>
         <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
     <div class="col-8 offset-2 my-3">
       <%= f.attachment_field :image %><br>
     </div>

@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     resources :blog_comments, only: [:create, :destroy]
   end
   #for user
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      get :follow, :follower
+    end
+  end
   resources :relationships, only: [:create, :destroy]
   get "home/about" => "homes#about"
 end

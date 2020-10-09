@@ -73,16 +73,15 @@
 <div class="container">
 <%# コメント欄 row start %>
   <div class="row justify-content-center m-3 p-3">
-    <div class="col">
-      <%= form_with(model:[@blog,@blog_comment], local:true) do |f| %>
-        <%= f.text_area :comment, class: "form-control", placeholder:"comment is here..." %>
-        <%= f.submit "send", class: "blog btn btn-dark mt-3" %>
-      <% end %>
+    <div class="col-10">
+      <%= render 'blog_comments/comment_form', blog: @blog, blog_comment: @blog_comment %>
     </div>
   </div>
   <%# コメント欄 row end %>
   <%# コメント一覧 start %>
-  <%= render 'blog_comments/comment_show', blog: @blog, blog_comment: @blog_comment  %>
+  <div class="comment_show">
+    <%= render 'blog_comments/comment_show', blog: @blog, blog_comment: @blog_comment  %>
+  </div>
 </div>
 
 

@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row justify-content-center m-3 p-3">
+    <h1>Followers  <span><i class="fas fa-users"></i></span><h1>
+  </div>
+  <% @user.followers.each do |user| %>
+    <div class="row border-bottom border-top py-3">
+      <div class="col-2 offset-3">
+        <%= attachment_image_tag user, :profile_image, size: "100x100", format: "jpeg", class:"img-circle border border-secondary rounded-circle img-fluid", fallback: "no_image.jpg" %>
+      </div>
+      <div class="col-1 my-auto user-name">
+        <%= user.name %>
+      </div>
+      <%= link_to user_path(user), class:"btn btn-outline-warning my-auto offset-1 user-name" do %>
+        <%= user.name %>　page
+      <% end %>
+    </div>
+  <% end %>
+  <div class="row justify-content-center mt-2 pt-3">
+  <%= link_to "- Back -", :back, class:"text-decoration-none text-muted" %>
+</div>

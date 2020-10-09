@@ -1,0 +1,4 @@
+<%= form_with(model:[blog,blog_comment], remote: true) do |f| %>
+  <%= f.text_area :comment, class: "area form-control", placeholder:"comment is here..." %>
+  <%= f.submit "send", class: "blog btn btn-dark mt-3" %>
+<% end %>

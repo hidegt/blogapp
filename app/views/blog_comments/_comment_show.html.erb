@@ -1,0 +1,34 @@
+<div class="row justify-content-center m-3 p-3">
+  <div class="col">
+    <div class="row justify-content-center m-3 p-3">
+      <div class="col">
+        <h2><%= blog.blog_comments.count %>comments</h2>
+          <% blog.blog_comments.each do |blog_comment| %>
+            <div class="comment border-top border-bottom py-3">
+              <div class="col-12 text-muted">
+                <i class="far fa-calendar-alt"></i>　<%= blog_comment.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-3 offset-1 py-2">
+                  <%= link_to user_path(blog_comment.user.id), class:"text-decoration-none" do %>
+                    <%= attachment_image_tag blog_comment.user, :profile_image, size: "60x60", class:"border border-secondary rounded-circle", fallback: "no_image.jpg" %>
+                    <div class="blog col-1 text-dark"><%= blog_comment.user.name %></div>
+                  <% end %>
+                </div>
+                <div class="col-4 text-left">
+                  <p><%= blog_comment.comment %></p>
+                </div>
+                <div class="col-3 offset-1">
+                  <% if blog_comment.user == current_user %>
+                    <%= link_to "delete", blog_blog_comment_path(blog_comment.blog, blog_comment), method: :delete, class: "btn btn-danger", remote: true %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+      </div>
+    </div>
+
+  </div>
+</div>

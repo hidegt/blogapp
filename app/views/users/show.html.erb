@@ -28,7 +28,9 @@
       </div>
       <div class="col-4 border-right text-center">
         <h3 class="user-name"><%= @user.name %></h3>
-        <div class="user-follow py-3">follow:　<%= @user.followings.count %>　　　follower:　<%= @user.followers.count %></div>
+        <div class="user-follow py-3">
+          follow:　<%= link_to  @user.followings.count, follow_user_path(@user), class:"text-decoration-none text-dark" %>　　　follower:　<%= link_to @user.followers.count, follower_user_path(@user), class:"text-decoration-none text-dark" %>
+        </div>
         <% if @user != current_user %>
           <% if current_user.following?(@user) %>
             <%= form_for(current_user.relationships.find_by(follow_id: @user.id), html: { method: :delete}) do |f| %>
