@@ -24,7 +24,7 @@
   </div>
     <div class="row row-cols-3">
       <div class="col-3 border-right">
-        <%= attachment_image_tag @user, :profile_image, size: "200x200", format: "jpeg", class:"img-circle border border-secondary rounded-circle", fallback: "no_image.jpg" %>
+        <%= attachment_image_tag @user, :profile_image, size: "200x200", format: "jpeg", class:"img-circle border border-secondary rounded-circle img-fluid", fallback: "no_image.jpg" %>
       </div>
       <div class="col-4 border-right text-center">
         <h3 class="user-name"><%= @user.name %></h3>

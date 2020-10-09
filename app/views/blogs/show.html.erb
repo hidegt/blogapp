@@ -67,29 +67,22 @@
       <%= @blog.blog_comments.count %> comments
     </div>
   </div>
-<%# container %>
 </div>
 
-<%= form_with(model:[@blog,@blog_comment], local:true) do |f| %>
-  <%= f.text_area :comment, class: "form-control", placeholder:"comment is here..." %>
-  <%= f.submit "send", class: "blog btn btn-danger" %>
-<% end %>
 
-
-<h2><%= @blog.blog_comments.count %>comments</h2>
-<ol>
-  <% @blog.blog_comments.each do |blog_comment| %>
-    <li class="comment">
-      <%= attachment_image_tag blog_comment.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
-      <a href="#" class="link-author"><%= blog_comment.user.name %></a>
-      <span class="comment-meta">
-        <span class="comment-data"><%= blog_comment.created_at.strftime('%Y/%m/%d') %></span>
-      </span>
-      <p><%= blog_comment.comment %></p>
-      <% if blog_comment.user == current_user %>
-        <%= link_to "delete", blog_blog_comment_path(blog_comment.blog, blog_comment), method: :delete, class: "btn btn-danger pull right" %>
+<div class="container">
+<%# コメント欄 row start %>
+  <div class="row justify-content-center m-3 p-3">
+    <div class="col">
+      <%= form_with(model:[@blog,@blog_comment], local:true) do |f| %>
+        <%= f.text_area :comment, class: "form-control", placeholder:"comment is here..." %>
+        <%= f.submit "send", class: "blog btn btn-dark mt-3" %>
       <% end %>
-    </li>
-  <% end %>
-</ol>
+    </div>
+  </div>
+  <%# コメント欄 row end %>
+  <%# コメント一覧 start %>
+  <%= render 'blog_comments/comment_show', blog: @blog, blog_comment: @blog_comment  %>
+</div>
+
 
