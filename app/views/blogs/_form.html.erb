@@ -5,12 +5,14 @@
     <div class="card text-white bg-danger mb-3 col-8 error offset-2">
       <div class="card-header ">Warning!!!</div>
       <div class="card-body">
-        <h2 class="card-title error"><%= blog.errors.count %>errors appeared</h2>
-        <ul>
-        <% blog.errors.full_messages.each do |message| %>
-          <li class="card-text"><%= message %></li>
-        <% end %>
-        </ul>
+        <div class="col-8 offset-2 my-3">
+          <h2 class="card-title error"><%= blog.errors.count %>errors appeared</h2>
+          <ul>
+          <% blog.errors.full_messages.each do |message| %>
+            <li class="card-text"><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   <% end %>

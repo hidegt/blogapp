@@ -46,7 +46,9 @@
 
     <div class="body">
       <% flash.each do |key,value| %>
-        <%= content_tag(:div, value, class: "#{key}") %>
+        <div class="text-center text-monospace mt-3 font-weight-bolder alert alert-primary" role="alert">
+          <%= content_tag(:div, value, class: "#{key}") %>
+        </div>
       <% end %>
     <%= yield %>
   </body>

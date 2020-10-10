@@ -30,5 +30,5 @@ attachment :profile_image
   def following?(other_user)
     self.followings.include?(other_user)
   end
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 2, maximum: 10 }
 end
