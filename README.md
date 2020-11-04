@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+DMM WEBCAMP１ヶ月目の復習用に作成しました。
 
-Things you may want to cover:
+##サイト概要
+ブログ投稿サイトです。
+フォロー・フォロワー機能
+いいね機能を付けました。
+シンプルに、でも可愛らしく、を意識してレイアウトをしました。
 
-* Ruby version
+##開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails　-v6.0.3.4
+- JSライブラリ：jQuery
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
